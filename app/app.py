@@ -2,11 +2,14 @@
 
 from flask import Flask, make_response
 from flask_migrate import Migrate
+import os
 
 from models import db, Hero
 
+file_path = os.path.abspath(os.getcwd()) + '/db/app.db'
+
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/app.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+file_path
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 migrate = Migrate(app, db)
