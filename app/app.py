@@ -90,11 +90,31 @@ class PowersById(Resource):
         
         else:
             return make_response(jsonify({"error": "Power not found"}), 404)
+        
+
+class HeroPowers(Resource):
+    def post(self):
+        data = request.get_json()
+
+        new_hero_power = HeroPower(
+            strength=data['strength'],
+            hero_id=data['hero_id'],
+            power_id=data['power_id']
+        )
+
+        try:
+            db.session.add(new_hero_power)
+            db.session.commit()
+            new_hero_power_dict = new_hero_power.hero.to_dict()
+            return make_response(jsonify(new_hero_power_dict.to_dict()), 201)
+        except:
+            return make_response(jsonify({"error": ["validation errors"]}), 500)
 
 api.add_resource(Heroes, '/heroes')
 api.add_resource(HeroesById, '/heroes/<int:id>')
 api.add_resource(Powers, '/powers')
 api.add_resource(PowersById, '/powers/<int:id>')
+api.add_resource(HeroPowers, '/hero_powers')
 
 if __name__ == '__main__':
     app.run(port=5556)
