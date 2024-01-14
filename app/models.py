@@ -27,6 +27,7 @@ class Power(db.Model, SerializerMixin):
     def __repr__(self):
         return f'<Power {self.name}, {self.description}>'
     
+
 class HeroPower(db.Model, SerializerMixin):
     __tablename__ = 'hero_powers'
 
