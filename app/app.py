@@ -33,9 +33,18 @@ class Heroes(Resource):
         ]
         
         return make_response(jsonify(heroes_dict), 200)
-        
+    
+
+class HeroesById(Resource):
+    def get(self, id):
+        hero = Hero.query.filter_by(id=id).first().to_dict()
+
+        return make_response(jsonify(hero), 200)
+
+
 
 api.add_resource(Heroes, '/heroes')
+api.add_resource(HeroesById, '/heroes/<int:id>')
 
 if __name__ == '__main__':
     app.run(port=5556)
