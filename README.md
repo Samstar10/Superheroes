@@ -1,14 +1,13 @@
-# Flask Code Challenge - Superheroes
+# Superheroes API
 
-For this assessment, you'll be working on an API for tracking heroes and their
+## Author: Samuel Muli
+
+This is an API for tracking heroes and their
 superpowers.
 
-In this repo, there is a Flask application with some features built out. There
-is also a fully built React frontend application, so you can test if your API is
+In this repo, is a Flask application with some features built out. There
+is also a fully built React frontend application, so you can test if the API is
 working.
-
-Your job is to build out the Flask API to add the functionality described in the
-deliverables below.
 
 ## Setup
 
@@ -19,10 +18,7 @@ pipenv install
 npm install --prefix client
 ```
 
-There is some starter code in the `app/seed.py` file so that once you've
-generated the models, you'll be able to create data to test your application.
-
-You can run your Flask API on [`localhost:5555`](http://localhost:5555) by running:
+You can run your Flask API on [`localhost:5556`](http://localhost:5555) by running:
 
 ```sh
 python app.py
@@ -34,32 +30,15 @@ You can run your React app on [`localhost:4000`](http://localhost:4000) by runni
 npm start --prefix client
 ```
 
-You are not being assessed on React, and you don't have to update any of the React
-code; the frontend code is available just so that you can test out the behavior
-of your API in a realistic setting.
-
-There are also tests included which you can run using `pytest -x` to check your work.
-
-Depending on your preference, you can either check your progress by:
-
-- Running `pytest -x` and seeing if your code passes the tests
-- Running the React application in the browser and interacting with the API via
-  the frontend
-- Running the Flask server and using Postman to make requests
-
 ## Models
 
-You need to create the following relationships:
+These are the relationships:
 
 - A `Hero` has many `Power`s through `HeroPower`
 - A `Power` has many `Hero`s through `HeroPower`
 - A `HeroPower` belongs to a `Hero` and belongs to a `Power`
 
-Start by creating the models and migrations for the following database tables:
-
 ![domain diagram](domain.png)
-
-Add any code needed in the model files to establish the relationships.
 
 Then, run the migrations and seed file:
 
@@ -71,24 +50,11 @@ python app/seed.py
 > If you aren't able to get the provided seed file working, you are welcome to
 > generate your own seed data to test the application.
 
-## Validations
-
-Add validations to the `HeroPower` model:
-
-- `strength` must be one of the following values: 'Strong', 'Weak', 'Average'
-
-Add validations to the `Power` model:
-
-- `description` must be present and at least 20 characters long
-
 ## Routes
-
-Set up the following routes. Make sure to return JSON data in the format
-specified along with the appropriate HTTP verb.
 
 ### GET /heroes
 
-Return JSON data in the format below:
+Returns JSON data in the format below:
 
 ```json
 [
@@ -100,7 +66,7 @@ Return JSON data in the format below:
 
 ### GET /heroes/:id
 
-If the `Hero` exists, return JSON data in the format below:
+If the `Hero` exists, returns JSON data in the format below:
 
 ```json
 {
@@ -122,7 +88,7 @@ If the `Hero` exists, return JSON data in the format below:
 }
 ```
 
-If the `Hero` does not exist, return the following JSON data, along with
+If the `Hero` does not exist, returns the following JSON data, along with
 the appropriate HTTP status code:
 
 ```json
@@ -133,7 +99,7 @@ the appropriate HTTP status code:
 
 ### GET /powers
 
-Return JSON data in the format below:
+Returns JSON data in the format below:
 
 ```json
 [
@@ -152,7 +118,7 @@ Return JSON data in the format below:
 
 ### GET /powers/:id
 
-If the `Power` exists, return JSON data in the format below:
+If the `Power` exists, returns JSON data in the format below:
 
 ```json
 {
@@ -162,7 +128,7 @@ If the `Power` exists, return JSON data in the format below:
 }
 ```
 
-If the `Power` does not exist, return the following JSON data, along with
+If the `Power` does not exist, returns the following JSON data, along with
 the appropriate HTTP status code:
 
 ```json
@@ -173,7 +139,7 @@ the appropriate HTTP status code:
 
 ### PATCH /powers/:id
 
-This route should update an existing `Power`. It should accept an object with
+This route updates an existing `Power`. It accepts an object with
 the following properties in the body of the request:
 
 ```json
@@ -182,8 +148,8 @@ the following properties in the body of the request:
 }
 ```
 
-If the `Power` exists and is updated successfully (passes validations), update
-its description and return JSON data in the format below:
+If the `Power` exists and is updated successfully (passes validations), updates
+its description and returns JSON data in the format below:
 
 ```json
 {
@@ -193,7 +159,7 @@ its description and return JSON data in the format below:
 }
 ```
 
-If the `Power` does not exist, return the following JSON data, along with
+If the `Power` does not exist, returns the following JSON data, along with
 the appropriate HTTP status code:
 
 ```json
@@ -203,7 +169,7 @@ the appropriate HTTP status code:
 ```
 
 If the `Power` is **not** updated successfully (does not pass validations),
-return the following JSON data, along with the appropriate HTTP status code:
+returns the following JSON data, along with the appropriate HTTP status code:
 
 ```json
 {
@@ -213,8 +179,8 @@ return the following JSON data, along with the appropriate HTTP status code:
 
 ### POST /hero_powers
 
-This route should create a new `HeroPower` that is associated with an
-existing `Power` and `Hero`. It should accept an object with the following
+This route creates a new `HeroPower` that is associated with an
+existing `Power` and `Hero`. It accepts an object with the following
 properties in the body of the request:
 
 ```json
@@ -225,7 +191,7 @@ properties in the body of the request:
 }
 ```
 
-If the `HeroPower` is created successfully, send back a response with the data
+If the `HeroPower` is created successfully, sends back a response with the data
 related to the `Hero`:
 
 ```json
@@ -248,7 +214,7 @@ related to the `Hero`:
 }
 ```
 
-If the `HeroPower` is **not** created successfully, return the following
+If the `HeroPower` is **not** created successfully, returns the following
 JSON data, along with the appropriate HTTP status code:
 
 ```json
@@ -256,3 +222,20 @@ JSON data, along with the appropriate HTTP status code:
   "errors": ["validation errors"]
 }
 ```
+
+
+## Contributing
+
+Contributions are welcome! If you would like to contribute, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature/bug fix: `git checkout -b feature-name`.
+3. Make your changes and commit them: `git commit -m "Add feature/fix bug"`
+4. Push to the branch: `git push origin feature-name`.
+5. Submit a pull request.
+
+Please ensure that your code follows the project's coding style and includes appropriate tests.
+
+## License
+
+The Project Name is open source and is released under the [MIT License](LICENSE).
