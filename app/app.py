@@ -96,19 +96,23 @@ class HeroPowers(Resource):
     def post(self):
         data = request.get_json()
 
+        hero_id = int(data['hero_id'])
+        power_id = int(data['power_id'])
+        strength = data['strength']
+
         new_hero_power = HeroPower(
-            strength=data['strength'],
-            hero_id=data['hero_id'],
-            power_id=data['power_id']
+            strength=strength,
+            hero_id=hero_id,
+            power_id=power_id
         )
 
         try:
             db.session.add(new_hero_power)
             db.session.commit()
-            new_hero_power_dict = new_hero_power.hero.to_dict()
-            return make_response(jsonify(new_hero_power_dict.to_dict()), 201)
+            new_hero_power_dict = new_hero_power.to_dict()
+            return make_response(jsonify(new_hero_power_dict), 201)
         except:
-            return make_response(jsonify({"error": ["validation errors"]}), 500)
+            return make_response(jsonify({"error": ["An error occurred while saving the HeroPower"]}), 500)
 
 api.add_resource(Heroes, '/heroes')
 api.add_resource(HeroesById, '/heroes/<int:id>')
